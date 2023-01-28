@@ -7,11 +7,11 @@ int main()
     {
         if(year[i] % 4 == 0)
         {
-            printf("%d was a leap year", year);
+            printf("%d was a leap year", year[i]);
         }
         else
         {
-            printf("%d was not a leap year.", year);
+            printf("%d was not a leap year.", year[i]);
         }
     }
     return 0;

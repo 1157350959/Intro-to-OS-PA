@@ -2,15 +2,17 @@
 
 int main()
 {
-    int year = 0;
-    scanf("%d", &year);
-    if(year % 4 == 0)
+    int year[5] = [1900,2000,2004,2012,2018];
+    for(int i = 0; i < 5; i++)
     {
-        printf("%d was a leap year", year);
-    }
-    else
-    {
-        printf("%d was not a leap year.", year);
+        if(year[i] % 4 == 0)
+        {
+            printf("%d was a leap year", year);
+        }
+        else
+        {
+            printf("%d was not a leap year.", year);
+        }
     }
     return 0;
 }

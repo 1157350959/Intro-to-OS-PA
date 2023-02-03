@@ -284,12 +284,6 @@ struct PCB handle_process_completion_rr(struct PCB ready_queue[QUEUEMAX], int * 
         *queue_cnt -= 1;
         next_PCB.execution_starttime = time_stamp;
         next_PCB.execution_endtime = time_stamp + min(time_quantum, next_PCB.remaining_bursttime);
-        for(int i = 0; i < *queue_cnt; i++)
-        {
-            printf("%d%d%d%d%d%d%d\n",ready_queue[i].process_id,ready_queue[i].arrival_timestamp,ready_queue[i].total_bursttime,ready_queue[i].execution_starttime,ready_queue[i].execution_endtime,ready_queue[i].remaining_bursttime,ready_queue[i].process_priority);
-        }
-        printf("%d\n",*queue_cnt);
-        printf("%d%d%d%d%d%d%d\n",next_PCB.process_id,next_PCB.arrival_timestamp,next_PCB.total_bursttime,next_PCB.execution_starttime,next_PCB.execution_endtime,next_PCB.remaining_bursttime,next_PCB.process_priority);
         return next_PCB;
     }
 }

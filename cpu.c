@@ -187,7 +187,7 @@ struct PCB handle_process_completion_srtp(struct PCB ready_queue[QUEUEMAX], int 
     else
     {
         int min_remaining_time = ready_queue[0].remaining_bursttime;
-        struct PCB next_PCB;
+        struct PCB next_PCB = ready_queue[0];
         int next_PCB_idx = 0;
         for(int i = 0; i < *queue_cnt; i++)
         {

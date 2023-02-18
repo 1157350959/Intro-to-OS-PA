@@ -16,8 +16,7 @@ int process_page_access_fifo(struct PTE page_table[TABLEMAX], int * table_cnt, i
         {
             struct PTE new_pte = {true, frame_pool[--(*frame_cnt)], current_timestamp, current_timestamp, 1};
             page_table[page_number] = new_pte;
-            //*table_cnt = (page_number >= *table_cnt)? *table_cnt + 1 : *table_cnt;
-            (*table_cnt)++;
+            *table_cnt = (page_number >= *table_cnt)? *table_cnt + 1 : *table_cnt;
             return frame_pool[*frame_cnt];
         }
         else

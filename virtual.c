@@ -63,3 +63,6 @@ int process_page_access_lfu(struct PTE page_table[TABLEMAX], int * table_cnt, in
 }
 
 int count_page_faults_lfu(struct PTE page_table[TABLEMAX], int table_cnt, int reference_string[REFERENCEMAX], int reference_cnt, int frame_pool[POOLMAX], int frame_cnt)
+{
+
+}

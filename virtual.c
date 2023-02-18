@@ -41,22 +41,3 @@ int process_page_access_fifo(struct PTE page_table[TABLEMAX], int * table_cnt, i
         }
     }
 }
-
-int main()
-{
-    struct PTE pt[TABLEMAX] = {{0,-1,-1,-1,-1},{0,-1,-1,-1,-1},{1,10,3,3,1},{0,-1,-1,-1,-1},{0,-1,-1,-1,-1},{1,20,2,4,2},{0,-1,-1,-1,-1},{1,30,1,1,1}};
-    int tc = 8;
-    int pn = 0;
-    int fp[POOLMAX];
-    int fc = 0;
-    int ct = 12;
-    int fn = process_page_access_fifo(pt,&tc,pn,fp,&fc,ct);
-    for(int i = 0; i < tc; i++)
-    {
-        printf("%d,%d,%d,%d,%d\n",pt[i].is_valid,pt[i].frame_number,pt[i].arrival_timestamp,pt[i].last_access_timestamp,pt[i].reference_count);
-    }
-    printf("table_cnt: %d\n", tc);
-    printf("frame_cnt: %d\n", fc);
-    printf("frame_num: %d\n", fn);
-    return 0;
-}

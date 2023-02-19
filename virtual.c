@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "oslabs.h"
 #include <stdbool.h>
+#include <limits.h>
 
 int process_page_access_fifo(struct PTE page_table[TABLEMAX], int * table_cnt, int page_number, int frame_pool[POOLMAX], int * frame_cnt, int current_timestamp)
 {

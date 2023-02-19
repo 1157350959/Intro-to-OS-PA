@@ -79,28 +79,28 @@ int count_page_faults_fifo(struct PTE page_table[TABLEMAX], int table_cnt, int r
                 page_table[reference_string[i]] = new_pte;
                 total_page_faults++;
                 //printf("2. page: %d, faults: %d\nTable: \n",reference_string[i],total_page_faults);
-                for(int i = 0; i < table_cnt; i++)
+                for(int j = 0; j < table_cnt; j++)
                 {
-                    //printf("valid: %d frame: %d\n",page_table[i].is_valid,page_table[i].frame_number);
+                    //printf("valid: %d frame: %d\n",page_table[j].is_valid,page_table[j].frame_number);
                 }
             }
             else
             {
                 int min_arrival_time = -1;
                 int min_arrival_time_idx = -1;
-                for(int i = 0; i < table_cnt; i++)
+                for(int j = 0; j < table_cnt; j++)
                 {
-                    if(page_table[i].is_valid == true)
+                    if(page_table[j].is_valid == true)
                     {
                         if(min_arrival_time == -1)
                         {
-                            min_arrival_time = page_table[i].arrival_timestamp;
-                            min_arrival_time_idx = i;
+                            min_arrival_time = page_table[j].arrival_timestamp;
+                            min_arrival_time_idx = j;
                         }
-                        if((0 <= page_table[i].arrival_timestamp) && (page_table[i].arrival_timestamp < min_arrival_time))
+                        if((0 <= page_table[j].arrival_timestamp) && (page_table[j].arrival_timestamp < min_arrival_time))
                         {
-                            min_arrival_time = page_table[i].arrival_timestamp;
-                            min_arrival_time_idx = i;
+                            min_arrival_time = page_table[j].arrival_timestamp;
+                            min_arrival_time_idx = j;
                         }
                     }
                 }
@@ -110,9 +110,9 @@ int count_page_faults_fifo(struct PTE page_table[TABLEMAX], int table_cnt, int r
                 page_table[min_arrival_time_idx] = replaced_pte;
                 total_page_faults++;
                 //printf("3. page: %d, faults: %d\n table_cnt: %d\n Table: ",reference_string[i],total_page_faults, table_cnt);
-                for(int i = 0; i < table_cnt; i++)
+                for(int j = 0; j < table_cnt; j++)
                 {
-                    //printf("valid: %d frame: %d arrival_time: %d\n",page_table[i].is_valid,page_table[i].frame_number,page_table[i].arrival_timestamp);
+                    //printf("valid: %d frame: %d arrival_time: %d\n",page_table[j].is_valid,page_table[j].frame_number,page_table[j].arrival_timestamp);
                 }
             }
         }

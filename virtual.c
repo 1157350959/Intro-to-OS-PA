@@ -169,7 +169,61 @@ int process_page_access_lru(struct PTE page_table[TABLEMAX], int * table_cnt, in
 
 int count_page_faults_lru(struct PTE page_table[TABLEMAX], int table_cnt, int reference_string[REFERENCEMAX], int reference_cnt, int frame_pool[POOLMAX], int frame_cnt)
 {
-
+    int total_page_faults = 0;
+    for(int i = 0, time_stamp = 1; i < reference_cnt; i++, time_stamp++)
+    {
+        if(reference_string[i] >= table_cnt)
+        {
+            struct PTE new_pte = {false, -1, -1, -1, -1};
+            int num_expansion = reference_string[i] - table_cnt + 1;
+            for(int j = 0; j < num_expansion; j++)
+            {
+                page_table[table_cnt] = new_pte;
+                table_cnt++;
+            }
+        }
+        if (page_table[reference_string[i]].is_valid == true)
+        {
+            page_table[reference_string[i]].last_access_timestamp = time_stamp;
+            page_table[reference_string[i]].reference_count++;
+        }
+        else
+        {
+            if(frame_cnt > 0)
+            {
+                struct PTE new_pte = {true, frame_pool[--(frame_cnt)], time_stamp, time_stamp, 1};
+                page_table[reference_string[i]] = new_pte;
+                total_page_faults++;
+            }
+            else
+            {
+                int min_last_access_time = -1;
+                int min_last_access_time_idx = -1;
+                for(int i = 0; i < table_cnt; i++)
+                {
+                    if(page_table[i].is_valid == true)
+                    {
+                        if(min_last_access_time == -1)
+                        {
+                            min_last_access_time = page_table[i].last_access_timestamp;
+                            min_last_access_time_idx = i;
+                        }
+                        if((0 <= page_table[i].last_access_timestamp) && (page_table[i].last_access_timestamp < min_last_access_time))
+                        {
+                            min_last_access_time = page_table[i].last_access_timestamp;
+                            min_last_access_time_idx = i;
+                        }
+                    }
+                }
+                struct PTE new_pte = {true, page_table[min_last_access_time_idx].frame_number, time_stamp, time_stamp, 1};
+                page_table[reference_string[i]] = new_pte; 
+                struct PTE replaced_pte = {false, -1, -1, -1, -1};
+                page_table[min_last_access_time_idx] = replaced_pte;
+                total_page_faults++;
+            }
+        }
+    }
+    return total_page_faults;
 }
 
 int process_page_access_lfu(struct PTE page_table[TABLEMAX], int * table_cnt, int page_number, int frame_pool[POOLMAX], int * frame_cnt, int current_timestamp)

@@ -171,8 +171,9 @@ int process_page_access_lru(struct PTE page_table[TABLEMAX], int * table_cnt, in
 int count_page_faults_lru(struct PTE page_table[TABLEMAX], int table_cnt, int reference_string[REFERENCEMAX], int reference_cnt, int frame_pool[POOLMAX], int frame_cnt)
 {
     int total_page_faults = 0;
-    for(int i = 0, time_stamp = 1; i < reference_cnt; i++, time_stamp++)
+    for(int i = 0, time_stamp = 1; i < reference_cnt; i++)
     {
+        time_stamp++;
         if(reference_string[i] >= table_cnt)
         {
             struct PTE new_pte = {false, -1, -1, -1, -1};

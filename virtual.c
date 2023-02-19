@@ -78,7 +78,7 @@ int count_page_faults_fifo(struct PTE page_table[TABLEMAX], int table_cnt, int r
             {
                 struct PTE new_pte = {true, frame_pool[--frame_cnt], time_stamp, time_stamp, 1};
                 page_table[reference_string[i]] = new_pte;
-                total_page_faults++;
+                total_page_faults += 1;
                 //printf("2. page: %d, faults: %d\nTable: \n",reference_string[i],total_page_faults);
                 //for(int j = 0; j < table_cnt; j++)
                 //{
@@ -109,7 +109,7 @@ int count_page_faults_fifo(struct PTE page_table[TABLEMAX], int table_cnt, int r
                 page_table[reference_string[i]] = new_pte; 
                 struct PTE replaced_pte = {false, -1, -1, -1, -1};
                 page_table[min_arrival_time_idx] = replaced_pte;
-                total_page_faults++;
+                total_page_faults += 1;
                 //printf("3. page: %d, faults: %d\n table_cnt: %d\n Table: ",reference_string[i],total_page_faults, table_cnt);
                 //for(int j = 0; j < table_cnt; j++)
                 //{

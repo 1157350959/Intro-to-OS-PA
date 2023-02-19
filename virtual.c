@@ -54,7 +54,7 @@ int process_page_access_fifo(struct PTE page_table[TABLEMAX], int * table_cnt, i
 int count_page_faults_fifo(struct PTE page_table[TABLEMAX], int table_cnt, int reference_string[REFERENCEMAX], int reference_cnt, int frame_pool[POOLMAX], int frame_cnt)
 {
     int total_page_faults = 0;
-    for(int i = 0, time_stamp = 1; i < reference_cnt; i++)
+    for(int i = 0, time_stamp = 2; i < reference_cnt; i++, time_stamp++)
     {
         if(reference_string[i] >= table_cnt)
         {

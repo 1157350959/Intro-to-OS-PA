@@ -57,8 +57,8 @@ int count_page_faults_fifo(struct PTE page_table[TABLEMAX], int table_cnt, int r
     {
         if(page_table[reference_string[i]].is_valid == true)
         {
-            page_table[reference_string[i]].last_access_timestamp = time_stamp;
-            page_table[reference_string[i]].reference_count++;
+            //page_table[reference_string[i]].last_access_timestamp = time_stamp;
+            //page_table[reference_string[i]].reference_count++;
             //printf("1. page: %d, faults: %d\n",reference_string[i],total_page_faults);
         }
         else

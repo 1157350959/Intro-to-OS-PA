@@ -52,13 +52,23 @@ int process_page_access_fifo(struct PTE page_table[TABLEMAX], int * table_cnt, i
 
 int count_page_faults_fifo(struct PTE page_table[TABLEMAX], int table_cnt, int reference_string[REFERENCEMAX], int reference_cnt, int frame_pool[POOLMAX], int frame_cnt)
 {
-    int total_page_faults = 0;
+int total_page_faults = 0;
     for(int i = 0, time_stamp = 1; i < reference_cnt; i++, time_stamp++)
     {
+        // if(reference_string[i] >= table_cnt)
+        // {
+        //     struct PTE new_pte = {false, -1, -1, -1, -1};
+        //     int num_expansion = reference_string[i] - table_cnt + 1;
+        //     for(int j = 0; j < num_expansion; j++)
+        //     {
+        //         page_table[table_cnt] = new_pte;
+        //         table_cnt++;
+        //     }
+        // }
         if(page_table[reference_string[i]].is_valid == true)
         {
-            //page_table[reference_string[i]].last_access_timestamp = time_stamp;
-            //page_table[reference_string[i]].reference_count++;
+            page_table[reference_string[i]].last_access_timestamp = time_stamp;
+            page_table[reference_string[i]].reference_count++;
             //printf("1. page: %d, faults: %d\n",reference_string[i],total_page_faults);
         }
         else
@@ -76,17 +86,17 @@ int count_page_faults_fifo(struct PTE page_table[TABLEMAX], int table_cnt, int r
             }
             else
             {
-                int min_arrival_time = -1;
-                int min_arrival_time_idx = -1;
+                int min_arrival_time = INT_MAX;
+                int min_arrival_time_idx = TABLEMAX;
                 for(int j = 0; j < table_cnt; j++)
                 {
                     if(page_table[j].is_valid == true)
                     {
-                        if(min_arrival_time == -1)
-                        {
-                            min_arrival_time = page_table[j].arrival_timestamp;
-                            min_arrival_time_idx = j;
-                        }
+                        // if(min_arrival_time == -1)
+                        // {
+                        //     min_arrival_time = page_table[j].arrival_timestamp;
+                        //     min_arrival_time_idx = j;
+                        // }
                         if((0 <= page_table[j].arrival_timestamp) && (page_table[j].arrival_timestamp < min_arrival_time))
                         {
                             min_arrival_time = page_table[j].arrival_timestamp;

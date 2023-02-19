@@ -56,16 +56,16 @@ int count_page_faults_fifo(struct PTE page_table[TABLEMAX], int table_cnt, int r
     int total_page_faults = 0;
     for(int i = 0, time_stamp = 1; i < reference_cnt; i++, time_stamp++)
     {
-        // if(reference_string[i] >= table_cnt)
-        // {
-        //     struct PTE new_pte = {false, -1, -1, -1, -1};
-        //     int num_expansion = reference_string[i] - table_cnt + 1;
-        //     for(int j = 0; j < num_expansion; j++)
-        //     {
-        //         page_table[table_cnt] = new_pte;
-        //         table_cnt++;
-        //     }
-        // }
+        if(reference_string[i] >= table_cnt)
+        {
+            struct PTE new_pte = {false, -1, -1, -1, -1};
+            int num_expansion = reference_string[i] - table_cnt + 1;
+            for(int j = 0; j < num_expansion; j++)
+            {
+                page_table[table_cnt] = new_pte;
+                table_cnt++;
+            }
+        }
         if(page_table[reference_string[i]].is_valid == true)
         {
             page_table[reference_string[i]].last_access_timestamp = time_stamp;

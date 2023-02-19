@@ -53,7 +53,7 @@ int process_page_access_fifo(struct PTE page_table[TABLEMAX], int * table_cnt, i
 
 int count_page_faults_fifo(struct PTE page_table[TABLEMAX], int table_cnt, int reference_string[REFERENCEMAX], int reference_cnt, int frame_pool[POOLMAX], int frame_cnt)
 {
-int total_page_faults = 0;
+    int total_page_faults = 0;
     for(int i = 0, time_stamp = 1; i < reference_cnt; i++, time_stamp++)
     {
         // if(reference_string[i] >= table_cnt)
@@ -80,10 +80,10 @@ int total_page_faults = 0;
                 page_table[reference_string[i]] = new_pte;
                 total_page_faults++;
                 //printf("2. page: %d, faults: %d\nTable: \n",reference_string[i],total_page_faults);
-                for(int j = 0; j < table_cnt; j++)
-                {
+                //for(int j = 0; j < table_cnt; j++)
+                //{
                     //printf("valid: %d frame: %d\n",page_table[j].is_valid,page_table[j].frame_number);
-                }
+                //}
             }
             else
             {
@@ -98,7 +98,7 @@ int total_page_faults = 0;
                         //     min_arrival_time = page_table[j].arrival_timestamp;
                         //     min_arrival_time_idx = j;
                         // }
-                        if((0 <= page_table[j].arrival_timestamp) && (page_table[j].arrival_timestamp < min_arrival_time))
+                        if((0 < page_table[j].arrival_timestamp) && (page_table[j].arrival_timestamp < min_arrival_time))
                         {
                             min_arrival_time = page_table[j].arrival_timestamp;
                             min_arrival_time_idx = j;
@@ -111,10 +111,10 @@ int total_page_faults = 0;
                 page_table[min_arrival_time_idx] = replaced_pte;
                 total_page_faults++;
                 //printf("3. page: %d, faults: %d\n table_cnt: %d\n Table: ",reference_string[i],total_page_faults, table_cnt);
-                for(int j = 0; j < table_cnt; j++)
-                {
+                //for(int j = 0; j < table_cnt; j++)
+                //{
                     //printf("valid: %d frame: %d arrival_time: %d\n",page_table[j].is_valid,page_table[j].frame_number,page_table[j].arrival_timestamp);
-                }
+                //}
             }
         }
     }
